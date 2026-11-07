@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Angel & Devil BP",
+    "description": "Angel Staff and Devil's Scythe",
+    "uuid": "72ba1b76-ed3d-49a4-a092-005762ef8455",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 26, 60]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "d037f2ca-43f8-4418-a51f-d7c8a42fcaa5",
+      "version": [1, 0, 0]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "f78f68cf-ee43-4e56-9078-17a62884c897",
+      "entry": "scripts/main.js",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.9.0"
+    }
+  ]
+}
