@@ -1,0 +1,24 @@
+{
+  "name": "angel-devil-addon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minecraft Bedrock addon: Angel Staff and Devil's Scythe",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adikhw/angel-devil-addon.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/adikhw/angel-devil-addon/issues"
+  },
+  "homepage": "https://github.com/adikhw/angel-devil-addon#readme",
+  "devDependencies": {
+    "@minecraft/server": "2.9.0",
+    "typescript": "^7.0.2"
+  }
+}
