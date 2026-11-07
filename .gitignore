@@ -157,3 +157,6 @@ BP/scripts/
 # packaged addon files
 *.mcpack
 *.mcaddon
+
+# Notes
+ADDON_NOTES.md
