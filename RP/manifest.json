@@ -1,0 +1,17 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Angel & Devil RP",
+    "description": "Angel Staff and Devil's Scythe",
+    "uuid": "43e092c7-51ed-400f-8a03-6abfad9422f3",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 26, 60]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "e4a56b3f-c622-4203-9e3c-df6821841e9a",
+      "version": [1, 0, 0]
+    }
+  ]
+}
