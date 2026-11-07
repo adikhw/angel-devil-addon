@@ -147,3 +147,13 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# build output of the addon (compiled from src/)
+BP/scripts/
+
+# python venv for tools/generate_textures.py
+.venv/
+
+# packaged addon files
+*.mcpack
+*.mcaddon
