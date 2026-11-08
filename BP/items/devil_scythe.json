@@ -5,7 +5,7 @@
         "identifier": "kurta:devil_scythe",
         "menu_category": {
             "category": "equipment",
-            "group": "itemGroup.name.sword"
+            "group": "minecraft:itemGroup.name.sword"
         }
     },
     "components": {
