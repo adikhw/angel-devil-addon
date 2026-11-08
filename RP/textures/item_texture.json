@@ -3,6 +3,6 @@
   "texture_name": "atlas.items",
   "texture_data": {
     "angel_staff": { "textures": "textures/items/angel_staff" },
-    "devil_scythe": { "textures": "textures/items/devil_scythe" }
+    "kurta:devil_scythe": { "textures": "textures/items/devil_scythe" }
   }
 }
