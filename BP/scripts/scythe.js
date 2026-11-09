@@ -1,7 +1,7 @@
 import { world, Player, EntityDamageCause, EquipmentSlot, } from "@minecraft/server";
 const SCYTHE_ID = "kurta:devil_scythe";
 const HEAL_HP = 6; // 3 hearts = 6 HP
-export function setupScyhte() {
+export function setupScythe() {
     world.afterEvents.entityHurt.subscribe((event) => {
         const attacker = event.damageSource.damagingEntity;
         if (!(attacker instanceof Player))

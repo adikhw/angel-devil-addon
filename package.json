@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/adikhw/angel-devil-addon#readme",
   "devDependencies": {
-    "@minecraft/server": "2.9.0",
+    "@minecraft/server": "^2.11.0",
     "typescript": "^7.0.2"
   }
 }

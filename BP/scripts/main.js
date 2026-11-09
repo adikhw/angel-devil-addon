@@ -1,6 +1,6 @@
 import { world } from "@minecraft/server";
-import { setupScyhte } from "./scyhte";
-setupScyhte();
+import { setupScythe } from "./scythe.js";
+setupScythe();
 world.afterEvents.playerSpawn.subscribe((event) => {
     if (!event.initialSpawn)
         return;
