@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "textures": "python3 tools/generate_textures.py",
+    "package": "bash tools/package.sh"
   },
   "repository": {
     "type": "git",
