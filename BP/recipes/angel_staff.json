@@ -1,0 +1,19 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": { "identifier": "kurta:angel_staff" },
+    "tags": ["crafting_table"],
+    "pattern": [
+      " G ",
+      " B ",
+      " S "
+    ],
+    "key": {
+      "G": { "item": "minecraft:gold_ingot" },
+      "B": { "item": "minecraft:bone_meal" },
+      "S": { "item": "minecraft:stick" }
+    },
+    "unlock": [{ "item": "minecraft:gold_ingot" }],
+    "result": { "item": "kurta:angel_staff" }
+  }
+}

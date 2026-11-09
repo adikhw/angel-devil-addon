@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": { "identifier": "kurta:devil_scythe" },
+    "tags": ["crafting_table"],
+    "pattern": [
+      "OO ",
+      " R ",
+      " R "
+    ],
+    "key": {
+      "O": { "item": "minecraft:obsidian" },
+      "R": { "item": "minecraft:blaze_rod" }
+    },
+    "unlock": [{ "item": "minecraft:blaze_rod" }],
+    "result": { "item": "kurta:devil_scythe" }
+  }
+}
