@@ -1,4 +1,11 @@
-import { Block, Player, system, world } from "@minecraft/server";
+import {
+  Block,
+  EntityDamageCause,
+  EquipmentSlot,
+  Player,
+  system,
+  world,
+} from "@minecraft/server";
 
 const STAFF_ID = "kurta:angel_staff";
 const COOLDOWN_CATEGORY = "kurta:angel_staff";
@@ -81,6 +88,19 @@ function playGrowthEffects(block: Block): void {
 }
 
 export function setupStaff(): void {
+  world.beforeEvents.entityHurt.subscribe((event) => {
+    const attacker = event.damageSource.damagingEntity;
+    if (!(attacker instanceof Player)) return;
+    if (event.damageSource.cause !== EntityDamageCause.entityAttack) return;
+
+    const equippable = attacker.getComponent("minecraft:equippable");
+    const held = equippable?.getEquipment(EquipmentSlot.Mainhand);
+    if (held?.typeId !== STAFF_ID) return;
+
+    // The Angel Staff is a farming tool, not a weapon.
+    event.cancel = true;
+  });
+
   world.afterEvents.playerInteractWithBlock.subscribe((event) => {
     if (event.itemStack?.typeId !== STAFF_ID) return;
     if (!event.isFirstEvent) return;
