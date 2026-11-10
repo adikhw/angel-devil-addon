@@ -49,6 +49,16 @@ function markSweepImmune(entity: Entity): void {
   sweepImmuneUntil.set(entity.id, now + 2);
 }
 
+function playLifestealFeedback(player: Player): void {
+  const { x, y, z } = player.location;
+  player.dimension.spawnParticle(SCYTHE.lifestealParticle, {
+    x,
+    y: y + 1,
+    z,
+  });
+  player.playSound(SCYTHE.lifestealSound, { volume: 0.5, pitch: 1.2 });
+}
+
 function getSweepTargets(player: Player, primary: Entity): Entity[] {
   const view = player.getViewDirection();
   const viewLength = Math.hypot(view.x, view.z);
@@ -113,6 +123,13 @@ function sweep(
         cause: EntityDamageCause.entityAttack,
         damagingEntity: player,
       });
+
+      const { x, y, z } = target.location;
+      player.dimension.spawnParticle(SCYTHE.sweepParticle, {
+        x,
+        y: y + 1,
+        z,
+      });
     } catch {
       // The target may have died or unloaded between the query and the hit.
     }
@@ -160,6 +177,8 @@ export function setupScythe(): void {
         Math.min(SCYTHE.sweepHealPerTarget, remaining),
       );
     }
+
+    if (healed > 0) playLifestealFeedback(attacker);
   });
 
   world.afterEvents.entityDie.subscribe((event) => {
