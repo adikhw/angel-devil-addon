@@ -32,6 +32,24 @@ const SAPLINGS = new Set([
     "minecraft:pale_oak_sapling",
 ]);
 const lastUseTick = new Map();
+function getTargetBlocks(player, center) {
+    if (player.isSneaking)
+        return [center];
+    const blocks = [];
+    const radius = STAFF.areaRadius;
+    for (let dx = -radius; dx <= radius; dx++) {
+        for (let dz = -radius; dz <= radius; dz++) {
+            const block = center.dimension.getBlock({
+                x: center.location.x + dx,
+                y: center.location.y,
+                z: center.location.z + dz,
+            });
+            if (block)
+                blocks.push(block);
+        }
+    }
+    return blocks;
+}
 function growCrop(block) {
     const rule = CROPS[block.typeId];
     if (!rule)
@@ -84,7 +102,11 @@ export function setupStaff() {
         if (lastUseTick.get(player.id) === tick)
             return;
         lastUseTick.set(player.id, tick);
-        const grown = growCrop(event.block) || growSapling(event.block);
+        let grown = false;
+        for (const block of getTargetBlocks(player, event.block)) {
+            if (growCrop(block) || growSapling(block))
+                grown = true;
+        }
         if (!grown)
             return;
         playGrowthEffects(event.block);
