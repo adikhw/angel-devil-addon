@@ -66,7 +66,11 @@ All gameplay values live in `src/config.ts`. After changing them, run `npm run b
 | `SCYTHE.sweepArcDegrees` | `120` | Frontal cone of the sweep |
 | `SCYTHE.sweepMaxTargets` | `4` | Maximum extra mobs hit by one swing |
 | `SCYTHE.sweepDamageRatio` | `0.5` | Sweep damage as a fraction of the direct hit |
+| `SCYTHE.sweepMinDamage` | `1` | Minimum damage a sweep hit can deal |
+| `SCYTHE.sweepHealPerTarget` | `1` | Extra healing per sweep target, within the per-swing cap |
 | `SCYTHE.soulHarvestDurationTicks` | `100` | Soul Harvest duration (20 ticks = 1 second) |
+| `SCYTHE.soulHarvestAbsorptionAmplifier` | `0` | Absorption level; `0` is Absorption I |
+| `SCYTHE.soulHarvestSpeedAmplifier` | `0` | Speed level; `0` is Speed I |
 
 ## Install for development
 
