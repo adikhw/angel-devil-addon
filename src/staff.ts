@@ -34,19 +34,20 @@ const CROPS: Record<string, CropRule> = {
 };
 
 /**
- * Saplings use the `age_bit` state. Setting it makes the sapling eligible for
- * growth on the next random tick.
+ * Saplings can be grown into full trees immediately with the vanilla feature
+ * command. If the command is unavailable, falling back to `age_bit` still
+ * makes the sapling grow on its next random tick.
  */
-const SAPLINGS = new Set([
-  "minecraft:oak_sapling",
-  "minecraft:spruce_sapling",
-  "minecraft:birch_sapling",
-  "minecraft:jungle_sapling",
-  "minecraft:acacia_sapling",
-  "minecraft:dark_oak_sapling",
-  "minecraft:cherry_sapling",
-  "minecraft:pale_oak_sapling",
-]);
+const SAPLING_FEATURES: Record<string, string> = {
+  "minecraft:oak_sapling": "minecraft:oak_tree_feature",
+  "minecraft:spruce_sapling": "minecraft:spruce_tree_feature",
+  "minecraft:birch_sapling": "minecraft:birch_tree_feature",
+  "minecraft:jungle_sapling": "minecraft:jungle_tree_feature",
+  "minecraft:acacia_sapling": "minecraft:savanna_tree_feature",
+  "minecraft:dark_oak_sapling": "minecraft:roofed_tree_feature",
+  "minecraft:cherry_sapling": "minecraft:cherry_tree_feature",
+  "minecraft:pale_oak_sapling": "minecraft:pale_oak_tree_feature",
+};
 
 const lastUseTick = new Map<string, number>();
 
@@ -82,7 +83,18 @@ function growCrop(block: Block): boolean {
 }
 
 function growSapling(block: Block): boolean {
-  if (!SAPLINGS.has(block.typeId)) return false;
+  const feature = SAPLING_FEATURES[block.typeId];
+  if (!feature) return false;
+
+  try {
+    const { x, y, z } = block.location;
+    const result = block.dimension.runCommand(
+      `place feature ${feature} ${x} ${y} ${z}`,
+    );
+    if (result.successCount > 0) return true;
+  } catch {
+    // Fall through to natural growth when the command is unavailable.
+  }
 
   const current = block.permutation.getState("age_bit");
   if (current !== false) return false;
