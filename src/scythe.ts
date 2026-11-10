@@ -121,6 +121,23 @@ function sweep(
   return targets;
 }
 
+function grantSoulHarvest(player: Player): void {
+  player.addEffect("minecraft:absorption", SCYTHE.soulHarvestDurationTicks, {
+    amplifier: SCYTHE.soulHarvestAbsorptionAmplifier,
+  });
+  player.addEffect("minecraft:speed", SCYTHE.soulHarvestDurationTicks, {
+    amplifier: SCYTHE.soulHarvestSpeedAmplifier,
+  });
+
+  const { x, y, z } = player.location;
+  player.dimension.spawnParticle(SCYTHE.soulHarvestParticle, {
+    x,
+    y: y + 1,
+    z,
+  });
+  player.playSound(SCYTHE.soulHarvestSound, { volume: 0.7, pitch: 1 });
+}
+
 export function setupScythe(): void {
   world.afterEvents.entityHurt.subscribe((event) => {
     const attacker = event.damageSource.damagingEntity;
@@ -143,5 +160,15 @@ export function setupScythe(): void {
         Math.min(SCYTHE.sweepHealPerTarget, remaining),
       );
     }
+  });
+
+  world.afterEvents.entityDie.subscribe((event) => {
+    const attacker = event.damageSource.damagingEntity;
+    if (!(attacker instanceof Player)) return;
+    if (event.damageSource.cause !== EntityDamageCause.entityAttack) return;
+    if (event.deadEntity.id === attacker.id) return;
+    if (!isHoldingScythe(attacker)) return;
+
+    grantSoulHarvest(attacker);
   });
 }
