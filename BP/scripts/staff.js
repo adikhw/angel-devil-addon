@@ -33,6 +33,25 @@ const SAPLING_FEATURES = {
     "minecraft:pale_oak_sapling": "minecraft:pale_oak_tree_feature",
 };
 const lastUseTick = new Map();
+const FLOWERS = [
+    "minecraft:dandelion",
+    "minecraft:poppy",
+    "minecraft:cornflower",
+    "minecraft:oxeye_daisy",
+    "minecraft:azure_bluet",
+];
+function bloomGrass(block) {
+    if (block.typeId !== "minecraft:grass_block")
+        return false;
+    const above = block.above();
+    if (!above || !above.isAir)
+        return false;
+    const plant = Math.random() < STAFF.grassBloomChance
+        ? "minecraft:short_grass"
+        : FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
+    above.setType(plant);
+    return true;
+}
 function getTargetBlocks(player, center) {
     if (player.isSneaking)
         return [center];
@@ -115,8 +134,9 @@ export function setupStaff() {
         lastUseTick.set(player.id, tick);
         let grown = false;
         for (const block of getTargetBlocks(player, event.block)) {
-            if (growCrop(block) || growSapling(block))
+            if (growCrop(block) || growSapling(block) || bloomGrass(block)) {
                 grown = true;
+            }
         }
         if (!grown)
             return;
