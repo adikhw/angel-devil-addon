@@ -1,9 +1,5 @@
 import { EntityDamageCause, EquipmentSlot, Player, system, world, } from "@minecraft/server";
-const STAFF_ID = "kurta:angel_staff";
-const COOLDOWN_CATEGORY = "kurta:angel_staff";
-const COOLDOWN_TICKS = 10; // 0.5 seconds
-const GROW_SOUND = "item.bone_meal.use";
-const GROW_PARTICLE = "minecraft:crop_growth_emitter";
+import { STAFF, STAFF_ID } from "./config.js";
 /**
  * Crops whose growth is stored in a numeric block state. Setting the state to
  * its maximum value makes the crop fully grown instantly.
@@ -61,8 +57,8 @@ function playGrowthEffects(block) {
         y: block.location.y + 0.5,
         z: block.location.z + 0.5,
     };
-    block.dimension.playSound(GROW_SOUND, location);
-    block.dimension.spawnParticle(GROW_PARTICLE, location);
+    block.dimension.playSound(STAFF.growthSound, location);
+    block.dimension.spawnParticle(STAFF.growthParticle, location);
 }
 export function setupStaff() {
     world.beforeEvents.entityHurt.subscribe((event) => {
@@ -92,6 +88,6 @@ export function setupStaff() {
         if (!grown)
             return;
         playGrowthEffects(event.block);
-        player.startItemCooldown(COOLDOWN_CATEGORY, COOLDOWN_TICKS);
+        player.startItemCooldown(STAFF.cooldownCategory, STAFF.cooldownTicks);
     });
 }

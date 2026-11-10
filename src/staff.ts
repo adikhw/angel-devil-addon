@@ -6,12 +6,7 @@ import {
   system,
   world,
 } from "@minecraft/server";
-
-const STAFF_ID = "kurta:angel_staff";
-const COOLDOWN_CATEGORY = "kurta:angel_staff";
-const COOLDOWN_TICKS = 10; // 0.5 seconds
-const GROW_SOUND = "item.bone_meal.use";
-const GROW_PARTICLE = "minecraft:crop_growth_emitter";
+import { STAFF, STAFF_ID } from "./config.js";
 
 type CropState = "growth" | "age";
 
@@ -83,8 +78,8 @@ function playGrowthEffects(block: Block): void {
     z: block.location.z + 0.5,
   };
 
-  block.dimension.playSound(GROW_SOUND, location);
-  block.dimension.spawnParticle(GROW_PARTICLE, location);
+  block.dimension.playSound(STAFF.growthSound, location);
+  block.dimension.spawnParticle(STAFF.growthParticle, location);
 }
 
 export function setupStaff(): void {
@@ -114,6 +109,6 @@ export function setupStaff(): void {
     if (!grown) return;
 
     playGrowthEffects(event.block);
-    player.startItemCooldown(COOLDOWN_CATEGORY, COOLDOWN_TICKS);
+    player.startItemCooldown(STAFF.cooldownCategory, STAFF.cooldownTicks);
   });
 }

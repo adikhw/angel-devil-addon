@@ -1,6 +1,5 @@
 import { world, Player, EntityDamageCause, EquipmentSlot, } from "@minecraft/server";
-const SCYTHE_ID = "kurta:devil_scythe";
-const HEAL_HP = 6; // 3 hearts = 6 HP
+import { SCYTHE, SCYTHE_ID } from "./config.js";
 export function setupScythe() {
     world.afterEvents.entityHurt.subscribe((event) => {
         const attacker = event.damageSource.damagingEntity;
@@ -15,7 +14,7 @@ export function setupScythe() {
         const health = attacker.getComponent("minecraft:health");
         if (!health)
             return;
-        const next = Math.min(health.currentValue + HEAL_HP, health.effectiveMax);
+        const next = Math.min(health.currentValue + SCYTHE.healHp, health.effectiveMax);
         health.setCurrentValue(next);
     });
 }
